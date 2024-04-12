@@ -24,13 +24,14 @@ app.post('/registro', (req, res) => {
   // Hash de la contraseña
   bcrypt.hash(password, 10, (err, hash) => {
     if (err) {
-      res.status(500).send('Error interno al registrar');
+      res.status(500).send('Error interno al registrar bcrypt');
       return;
+      console.log(res)
     }
     // Guardar el usuario en la base de datos
     db.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [username, email, hash], (err, result) => {
       if (err) {
-        res.status(500).send('Error interno al registrar');
+        res.status(500).send('Error interno al registrar en la bd');
         return;
       }
       res.status(200).send('Usuario registrado con éxito');
